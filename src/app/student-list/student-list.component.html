@@ -1,0 +1,15 @@
+<p>Students List:</p>
+<ul class="list-group">
+  <li *ngFor="let student of students" class="list-group-item">
+    <div class="row">
+        <div class = "col-2">{{student.id}}</div>
+        <div class = "col-2">{{student.firstName}}</div>
+        <div class = "col-2">{{student.lastName}}</div>
+        <div class = "col-2">{{student.active}}</div>
+        <div class = "col-2">{{student.marksAvg}}</div>
+        <button (click)="deleteStudent(student)" class = "col-2">delete</button>
+    </div>
+
+    
+  </li>
+</ul>
