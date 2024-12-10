@@ -1,22 +1,26 @@
 <p>Students List:</p>
 <ul class="list-group">
-  <li *ngFor="let student of students" class="list-group-item">
+  <li *ngFor="let student of students" class="list-group-item" [ngClass]="{'active' : selectedStudent && student.id == selectedStudent.id,
+              'list-group-item-success' : student.active}"
+              [class.list-group-item-danger] = "75 > student.marksAvg"
+              >
     <div class="row">
-        <div class = "col-1">{{student.id}}</div>
-        <div class = "col-1">{{student.firstName}}</div>
-        <div class = "col-1">{{student.lastName}}</div>
-        <!-- <div class = "col-1">{{student.active}}</div> -->
-        <!-- <div class = "col-1">{{student.marksAvg}}</div> -->
-        <button (click)="showDetails(student)" class = "col-2">details</button>
-        <button (click)="deleteStudent(student)" class = "col-2">delete</button>
+      <div class="col-1">{{student.id}}</div>
+      <div class="col-1">{{student.firstName}}</div>
+      <div class="col-1">{{student.lastName}}</div>
+      <!-- <div class = "col-1">{{student.active}}</div> -->
+      <!-- <div class = "col-1">{{student.marksAvg}}</div> -->
+      <button (click)="showDetails(student)" class="col-2">details</button>
+      <button (click)="deleteStudent(student)" class="col-2">delete</button>
     </div>
 
-    
+
   </li>
 </ul>
 
 <br>
 
-<button  class="btn btn-primary" (click)="showNewDetail()">Add Student</button>
+<button class="btn btn-primary" (click)="showNewDetail()">Add Student</button>
 <br><br>
-<app-student-details *ngIf="selectedStudent" [student] = "selectedStudent" (onSaveNewStudent)="addNewStudentToList($event)"></app-student-details>
+<app-student-details *ngIf="selectedStudent" [student]="selectedStudent"
+  (onSaveNewStudent)="addNewStudentToList($event)"></app-student-details>

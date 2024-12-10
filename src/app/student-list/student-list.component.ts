@@ -16,7 +16,7 @@ export class StudentListComponent {
     new Student(1, "John", "Doe", true, 85),
     new Student(2, "Dave", "Green", true, 100),
     new Student(3, "Dan", "Rock", false, 90),
-    new Student(4, "Emily", "Tie", true, 85),
+    new Student(4, "Emily", "Tie", true, 70),
   ]
 
   deleteStudent(student: Student) {
