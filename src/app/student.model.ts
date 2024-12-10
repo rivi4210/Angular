@@ -14,4 +14,5 @@ export class Student{
         this.active = active;
         this.marksAvg = marksAvg;
     }
+
 }
