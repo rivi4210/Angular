@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Student } from '../student.model';
+import { CityOfStudy, PriorityLevel, Student } from '../student.model';
 import { CommonModule } from '@angular/common';
 import { StudentDetailsComponent } from '../student-details/student-details.component';
 
@@ -7,7 +7,7 @@ import { StudentDetailsComponent } from '../student-details/student-details.comp
   selector: 'app-student-list',
   imports: [CommonModule, StudentDetailsComponent],
   templateUrl: './student-list.component.html',
-  styleUrl: './student-list.component.css'
+  styleUrl: './student-list.component.scss'
 })
 export class StudentListComponent {
 
@@ -16,7 +16,7 @@ export class StudentListComponent {
     new Student(1, "John", "Doe", true, 85),
     new Student(2, "Dave", "Green", true, 100),
     new Student(3, "Dan", "Rock", false, 90),
-    new Student(4, "Emily", "Tie", true, 70),
+    new Student(4, "Emily", "Tie", true, 70, PriorityLevel.High, CityOfStudy.Rehovot),
   ]
 
   deleteStudent(student: Student) {
@@ -30,12 +30,21 @@ export class StudentListComponent {
     this.selectedStudent = studentToShow
   }
 
-  showNewDetail(){
-    this.selectedStudent = new Student(0, "","", false,0)
+  showNewDetail() {
+    this.selectedStudent = new Student(0, "", "", false, 0)
   }
 
-  addNewStudentToList(newStudent:Student){
-    this.students.push(newStudent);
+  saveStudentToList(studentToSave: Student) {
+    const index = this.students.findIndex(s => s.id === studentToSave.id)
+
+    if (index == -1) {
+      studentToSave.id = this.students.length + 1;
+      this.students.push(studentToSave);
+    }
+    else {
+      this.students[index] = studentToSave
+    }
+    
     this.selectedStudent = null;
   }
 }

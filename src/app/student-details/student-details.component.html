@@ -2,48 +2,83 @@
     <div class="card"> Studend didn't chosen</div>
 </ng-template>
 
-<!-- <div class="card" *ngIf="student else noStudent">
-    <div class="card">
-        <div class="card-body">
-            Is Student Active?
-            {{student.active}}
+<div class="card" *ngIf="student else noStudent">
+    <form [formGroup]="studentForm">
 
-            <br>
-            Student Avg:
-            {{student.marksAvg}}
+        <div class="form-group"
+            [ngClass]="{'has-danger': studentForm.controls['firstName'].invalid && studentForm.controls['firstName'].touched}">
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control" id="firstName" formControlName="firstName">
+            <div *ngIf="studentForm.controls['firstName'].invalid && studentForm.controls['firstName'].touched"
+                class="text-danger">
+                <small *ngIf="studentForm.controls['firstName'].errors?.['required']">First Name is required.</small>
+                <small *ngIf="studentForm.controls['firstName'].errors?.['minlength']">First Name must be at least 2
+                    characters.</small>
+            </div>
         </div>
 
-    </div> -->
-
-    <div class="card" *ngIf="student else noStudent">
-        <!-- <form> -->
-            <div class="form-group">
-                <label for="studentId">id</label>
-                <input type="text" class="form-control" id="studentId" [value] = "student.id">
+        <div class="form-group"
+            [ngClass]="{'has-danger': studentForm.controls['lastName'].invalid && studentForm.controls['lastName'].touched}">
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control" id="lastName" formControlName="lastName">
+            <div *ngIf="studentForm.controls['lastName'].invalid && studentForm.controls['lastName'].touched"
+                class="text-danger">
+                <small *ngIf="studentForm.controls['lastName'].errors?.['required']">Last Name is required.</small>
+                <small *ngIf="studentForm.controls['lastName'].errors?.['minlength']">Last Name must be at least 2
+                    characters.</small>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label for="firstName">first name</label>
-                <input type="text" class="form-control" id="firstName" [value] = "student.firstName">
+        <div class="form-group"
+            [ngClass]="{'has-danger': studentForm.controls['active'].invalid && studentForm.controls['active'].touched}">
+            <label for="active">Active</label>
+            <input type="text" class="form-control" id="active" formControlName="active">
+            <div *ngIf="studentForm.controls['active'].invalid && studentForm.controls['active'].touched"
+                class="text-danger">
+                <small *ngIf="studentForm.controls['active'].errors?.['required']">Active status is required.</small>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label for="lastName">last name</label>
-                <input type="text" class="form-control" id="lastName" [value] = "student.lastName">
+
+        <div class="form-group"
+            [ngClass]="{'has-danger': studentForm.controls['marksAvg'].invalid && studentForm.controls['marksAvg'].touched}">
+            <label for="marksAvg">Marks Avg</label>
+            <input type="text" class="form-control" id="marksAvg" formControlName="marksAvg">
+            <div *ngIf="studentForm.controls['marksAvg'].invalid && studentForm.controls['marksAvg'].touched"
+                class="text-danger">
+                <small *ngIf="studentForm.controls['marksAvg'].errors?.['required']">Marks Average is required.</small>
+                <small *ngIf="studentForm.controls['marksAvg'].errors?.['min']">Marks must be at least 0.</small>
+                <small *ngIf="studentForm.controls['marksAvg'].errors?.['max']">Marks must be at most 100.</small>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label for="active">active</label>
-                <input type="text" class="form-control" id="active" [value] = "student.active">
-            </div>
+        <div class="form-group">
+            <label for="priority">Priority</label>
+            <select formControlName="priority">
+                <option *ngFor="let level of priorityLevels" [value]="level">
+                    {{ level }}
+                </option>
+            </select>
+        </div>
 
-            <div class="form-group">
-                <label for="marksAvg">marks avg</label>
-                <input type="text" class="form-control" id="marksAvg" [value] = "student.marksAvg">
-            </div>
-        <!-- </form> -->
-         <br>
-        <button type="submit" class="btn btn-primary" (click)="saveNewStudent()"> Save </button>
+        <div class="form-group">
+            <label for="cityOfStudy">City Of Study</label>
+            <br>
+            <input type="radio" value="cityOfStudy.Jerusalem" name="cityOfStudy" formControlName="cityOfStudy" />
+            Jerusalem
+            <input type="radio" value="cityOfStudy.BneiBrak" name="cityOfStudy" formControlName="cityOfStudy" />
+            BneiBrak
+            <input type="radio" value="cityOfStudy.Rehovot" name="cityOfStudy" formControlName="cityOfStudy" /> Rehovot
+        </div>
+        <div [ngSwitch]="studentForm.controls['cityOfStudy'].value">
+            <div *ngSwitchCase="'cityOfStudy.Jerusalem'">You Are in Jerusalem collage</div>
+            <div *ngSwitchCase="'cityOfStudy.BneiBrak'">You Are in a BneiBrak collage</div>
+            <div *ngSwitchCase="'cityOfStudy.Rehovot'">You Are in a Rehovot collage</div>
+            <div *ngSwitchDefault>Unknown Priority</div>
+        </div>
+    </form>
+    <br>
+    <button type="submit" class="btn btn-primary" (click)="saveNewStudent()" [disabled]="!studentForm.valid"> Save
+    </button>
 
-    </div>
-
+</div>
