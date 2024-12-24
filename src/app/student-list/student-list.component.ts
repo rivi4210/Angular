@@ -12,18 +12,21 @@ import { StudentService } from '../student.service';
 })
 export class StudentListComponent {
 
-  students : Student[] = [];
+  students: Student[] = [];
+  // constructor(private _studentService: StudentService) {
+  //   _studentService.getStudentsAsync().then((data) => {
+  //     this.students = data;
+  //   })
+  // }
   constructor(private _studentService: StudentService) { }
 
-  ngOnInit(): void {
-    this.students = this._studentService.getStudents();
-  } 
-   // students: Student[] = [
-  //   new Student(1, "John", "Doe", true, 85),
-  //   new Student(2, "Dave", "Green", true, 100),
-  //   new Student(3, "Dan", "Rock", false, 90),
-  //   new Student(4, "Emily", "Tie", true, 70, PriorityLevel.High, CityOfStudy.Rehovot),
-  // ]
+  async ngOnInit(): Promise<void> {
+    try {
+      this.students = await this._studentService.getStudentsAsync();
+    } catch (error) {
+      console.error("Error fetching students:", error);
+    }
+  }
 
   deleteStudent(student: Student) {
     let toDelete = this.students.indexOf(student);
@@ -50,7 +53,7 @@ export class StudentListComponent {
     else {
       this.students[index] = studentToSave
     }
-    
+
     this.selectedStudent = null;
   }
 
