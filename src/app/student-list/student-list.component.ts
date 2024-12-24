@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CityOfStudy, PriorityLevel, Student } from '../student.model';
 import { CommonModule } from '@angular/common';
 import { StudentDetailsComponent } from '../student-details/student-details.component';
+import { StudentService } from '../student.service';
 
 @Component({
   selector: 'app-student-list',
@@ -11,13 +12,18 @@ import { StudentDetailsComponent } from '../student-details/student-details.comp
 })
 export class StudentListComponent {
 
-  constructor() { }
-  students: Student[] = [
-    new Student(1, "John", "Doe", true, 85),
-    new Student(2, "Dave", "Green", true, 100),
-    new Student(3, "Dan", "Rock", false, 90),
-    new Student(4, "Emily", "Tie", true, 70, PriorityLevel.High, CityOfStudy.Rehovot),
-  ]
+  students : Student[] = [];
+  constructor(private _studentService: StudentService) { }
+
+  ngOnInit(): void {
+    this.students = this._studentService.getStudents();
+  } 
+   // students: Student[] = [
+  //   new Student(1, "John", "Doe", true, 85),
+  //   new Student(2, "Dave", "Green", true, 100),
+  //   new Student(3, "Dan", "Rock", false, 90),
+  //   new Student(4, "Emily", "Tie", true, 70, PriorityLevel.High, CityOfStudy.Rehovot),
+  // ]
 
   deleteStudent(student: Student) {
     let toDelete = this.students.indexOf(student);
@@ -47,4 +53,5 @@ export class StudentListComponent {
     
     this.selectedStudent = null;
   }
+
 }

@@ -22,8 +22,7 @@ export class Student {
     }
 
 }
-// const APP_TESTS: Test[] = [{ id: 1, date: new Date(), description: "aaa", mark: 90 },
-// { id: 2, date: new Date(), description: "bbb", mark: 95 }]
+
 export enum PriorityLevel {
     High = "High Level",
     Medium = "Medium level",
@@ -36,8 +35,3 @@ export enum CityOfStudy {
     Rehovot = "Rehovot"
 }
 
-// export enum StudyOfYear {
-//     First = "First",
-//     Second = "Second",
-//     Third = "Third"
-// }
